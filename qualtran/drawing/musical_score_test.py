@@ -51,7 +51,7 @@ def test_musical_score_aligns_with_qubit_count():
         )
         assert (
             msd.max_y + 1 == expected_qubits
-        ), f'{type(bloq).__name__} has too many lines - expected {expected_qubits}; got {msd.max_y + 1}'
+        ), f'{type(bloq).__name__} has too many lines; expected {expected_qubits}; got {actual_qubits}'
 
 
 @pytest.mark.notebook
