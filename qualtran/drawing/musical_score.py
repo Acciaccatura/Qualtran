@@ -358,10 +358,9 @@ def _cbloq_musical_score(
         if isinstance(binst, DanglingT):
             continue
         pred_cxns, succ_cxns = _binst_to_cxns(binst, binst_graph=binst_graph)
-        topo_gen = 0
+        
         # Compute the topological generation from predecesor nodes.
-        if len(pred_cxns) > 0:
-            topo_gen = max(soq_assign[pred.left].topo_gen for pred in pred_cxns) + 1
+        topo_gen = max(soq_assign[pred.left].topo_gen for pred in pred_cxns, default=0) + 1
         
         # Offload line assignment of bloq instance to LineManager.
         _binst_assign_line(
@@ -376,9 +375,7 @@ def _cbloq_musical_score(
             + [topo_gen]
         )
         for succ in succ_cxns:
-            soq_assign[succ.left] = attrs.evolve(
-                soq_assign[succ.left], topo_gen=topo_gen
-            )
+            soq_assign[succ.left] = attrs.evolve(soq_assign[succ.left], topo_gen=topo_gen)
 
         # Update latest topological generation.
         reg_idxs = set(
