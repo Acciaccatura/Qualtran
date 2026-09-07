@@ -51,7 +51,10 @@ def test_musical_score_aligns_with_qubit_count():
         )
         assert (
             actual_qubits == expected_qubits
-        ), f'{type(bloq).__name__} has too many lines; expected {expected_qubits}; got {actual_qubits}'
+        ), (
+            f'{type(bloq).__name__} has too many non-dangle lines; '
+            + f'expected {expected_qubits}; got {actual_qubits}'
+        )
 
 
 @pytest.mark.notebook
