@@ -50,7 +50,7 @@ def test_musical_score_aligns_with_qubit_count():
             set(soq.rpos.y for soq in msd.soqs if not soq.ident.startswith('dang'))
         )
         assert (
-            msd.max_y + 1 == expected_qubits
+            actual_qubits == expected_qubits
         ), f'{type(bloq).__name__} has too many lines; expected {expected_qubits}; got {actual_qubits}'
 
 
