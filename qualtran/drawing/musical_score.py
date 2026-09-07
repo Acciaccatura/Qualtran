@@ -371,7 +371,7 @@ def _cbloq_musical_score(
         # least after the furthest node on the line it is placed on. This is generally only
         # required for allocations or right-side bloqs that may reuse a previous qubit.
         topo_gen = max(
-            [y_to_topo_gen[soq_assign[succ.left].y] + 1 for succ in succ_cxns]
+            [y_to_topo_gen.get(soq_assign[succ.left].y, 0) + 1 for succ in succ_cxns]
             + [topo_gen]
         )
         for succ in succ_cxns:
