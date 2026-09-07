@@ -360,7 +360,7 @@ def _cbloq_musical_score(
         pred_cxns, succ_cxns = _binst_to_cxns(binst, binst_graph=binst_graph)
         
         # Compute the topological generation from predecesor nodes.
-        topo_gen = max(soq_assign[pred.left].topo_gen for pred in pred_cxns, default=0) + 1
+        topo_gen = max((soq_assign[pred.left].topo_gen for pred in pred_cxns), default=0) + 1
         
         # Offload line assignment of bloq instance to LineManager.
         _binst_assign_line(
