@@ -44,9 +44,11 @@ def test_musical_score_aligns_with_qubit_count():
     for bloq in [TestManyAllocMany(n), TestManyAllocOnce(n), TestManyAllocAbstracted(n)]:
         expected_qubits = get_cost_value(bloq, QubitCount())
         msd = get_musical_score_data(bloq.decompose_bloq())
-        # Ensure qubits (horizontal rows) match qubits from cost values in expected count. This
-        # test may depend on how elements of a circuit are represented.
-        actual_qubits = msd.max_y + 1
+        # Ensure qubits (horizontal rows) match qubits from cost values in expected count by
+        # counting all rows with at least one non-dangle Soquet.
+        actual_qubits = len(
+            set(soq.rpos.y for soq in msd.soqs if not soq.ident.startswith('dang'))
+        )
         assert (
             msd.max_y + 1 == expected_qubits
         ), f'{type(bloq).__name__} has too many lines - expected {expected_qubits}; got {msd.max_y + 1}'
