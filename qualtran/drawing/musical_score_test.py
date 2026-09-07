@@ -44,9 +44,10 @@ def test_musical_score_aligns_with_qubit_count():
     for bloq in [TestManyAllocMany(n), TestManyAllocOnce(n), TestManyAllocAbstracted(n)]:
         expected_qubits = get_cost_value(bloq, QubitCount())
         msd = get_musical_score_data(bloq.decompose_bloq())
-        # Ensure qubits (horizontal rows) match qubits from cost values in expected count. This test may depend on how
-        # elements of a circuit are represented, and may need to be updated accordingly.
+        # Ensure qubits (horizontal rows) match qubits from cost values in expected count. This
+        # test may depend on how elements of a circuit are represented.
         actual_qubits = msd.max_y + 1
+        assert False, f'{"\n".join(f"{x.symb}: {x.rpos.topo_gen}" for x in msd.soqs)}'
         assert (
             msd.max_y + 1 == expected_qubits
         ), f'{type(bloq).__name__} has too many lines - expected {expected_qubits}; got {msd.max_y + 1}'
